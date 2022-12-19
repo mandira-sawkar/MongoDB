@@ -1,0 +1,47 @@
+// MongoDB Playground
+
+// 2. Create and Select the database to use.
+use('ProductOrder');
+db = db.getSiblingDB("ProductOrder");
+db;
+//2. Create Collections
+db.createCollection('Product');
+db.createCollection('Inventory');
+db.createCollection('User');
+db.createCollection('Order');
+show collections
+//4. Display first 5 rows of collections
+db.Product.find({}).limit(5);
+db.Inventory.find({}).limit(5);
+db.User.find({}).limit(5);
+db.Order.find({}).limit(5);
+
+//5. Display unique values
+db.Product.distinct("brand");
+db.Product.distinct("model");
+
+//6. Max and min price
+db.Product.find().sort({price:-1}).limit(1);
+db.Product.find().sort({price:+1}).limit(1);
+
+//7. Display qty & last updated fields
+db.Inventory.find({sku:"SNY-11001"},
+  {_id:0, sku:1, quantity:1, last_updated:1});
+
+//8. Count of the total number of users with 'Supplier'
+db.User.countDocuments({role:"Supplier" });
+
+//9. Display 'sku', 'code', 'price', 'brand' and 'warranty'
+db.Product.find({model:"Bravia-X"},
+  {_id:0, created:0, last_updated:0});
+
+//10. Sony products which have an Price>1 lakh
+db.Product.find({brand:"Sony",price:{$gt:100000 }})
+
+//11. Total no of products by each Brand and sort
+db.Product.aggregate([{ $sortByCount: "$brand" }]);
+
+//12. Total no of users by each role, sort, save
+db.User.aggregate([{ $sortByCount: "$role" },
+  { $out : "NoofRolesSorted" }]);
+db.NoofRolesSorted.find({});
