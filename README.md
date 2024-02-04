@@ -3,8 +3,7 @@ We look to access an example MongoDB Database - the ProductOrder
 database. The ProductOrder database maintains an inventory of TV products of
 various brands and models. It allows users to place orders for one or more of
 these items, and offers discounts on these purchases.
-In the ProductOrder database, there are mainly four categories of information:
-● Product information
+In the ProductOrder database, there are mainly four categories of information:● Product information
 ● Inventory information
 ● User information
 ● Order information
